@@ -130,7 +130,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("bluecloth", "~> 2.0.9")
   s.add_development_dependency("wlang", "~> 0.10.2")
   s.add_dependency("wlang", "~> 0.10.2")
-  s.add_dependency("summaryse", "~> 1.0.0")
+  s.add_dependency("summaryse", "~> 1.1.0")
 
   # The version of ruby required by this gem
   #

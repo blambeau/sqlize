@@ -28,5 +28,5 @@ variables:
     - {name: yard,      version: "~> 0.7.2",  groups: [development]}
     - {name: bluecloth, version: "~> 2.0.9",  groups: [development]}
     - {name: wlang,     version: "~> 0.10.2", groups: [development, runtime]}
-    - {name: summaryse, version: "~> 1.0.0",  groups: [runtime]}
+    - {name: summaryse, version: "~> 1.1.0",  groups: [runtime]}
 

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     sqlize (1.0.0)
-      summaryse (~> 1.0.0)
+      summaryse (~> 1.1.0)
       wlang (~> 0.10.2)
 
 GEM
@@ -19,7 +19,7 @@ GEM
     rspec-expectations (2.4.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.4.0)
-    summaryse (1.0.0)
+    summaryse (1.1.0)
     wlang (0.10.2)
     yard (0.7.2)
 
