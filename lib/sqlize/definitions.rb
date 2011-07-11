@@ -21,5 +21,11 @@ module SQLize
       raise ArgumentError, "No such template #{qname}"
     end
 
+    def instantiate(qname, subject) 
+      WLang.instantiate(template(qname), 
+        {:definitions => self, :subject => subject}, 
+        "sqlize")
+    end
+
   end # class Definitions
 end # module SQLize
