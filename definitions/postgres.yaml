@@ -1,0 +1,60 @@
+typing:
+  String: TEXT
+  Integer: INTEGER
+  Float: NUMERIC
+ddl:
+  schema:
+    create: |-
+      +{/ddl/relvars/create}{subject: subject.relvars};
+      +{/ddl/relvars/create-constraints}{subject: subject.relvars};
+    create-inline: |-
+      +{/ddl/relvars/create-inline}{subject: subject.relvars}
+  relvars:
+    create: |-
+      *>{/ddl/table/create}{;!{"\n"}}
+    create-inline: |-
+      *>{/ddl/table/create-inline}{;!{"\n"}}
+    drop: |-
+      *>{/ddl/table/drop}{;!{"\n"}}
+    create-constraints: |-
+      *>{/ddl/table/create-constraints}{;!{"\n"}}
+  table: 
+    create: |-
+      CREATE TABLE ${subject.name} (
+        +{/ddl/heading/create-inline}{table:subject, subject:subject.heading}
+      )
+    create-inline: |-
+      CREATE TABLE ${subject.name} (
+        +{/ddl/heading/create-inline}{table:subject, subject:subject.heading},
+        +{/ddl/constraints/create-inline}{table:subject, subject:subject.constraints}
+      )
+    drop: |-
+      DROP TABLE ${subject.name}
+    create-constraints: |-
+      +{/ddl/constraints/create}{table:subject, subject:subject.constraints}
+  heading:
+    create-inline: |-
+      *>{/ddl/attribute/create-inline}{,!{"\n"}  }
+  attribute: 
+    create-inline: |-
+      ${subject.name} +{/typing/${subject.domain}} ?{subject.mandatory}{NOT} NULL
+    create: |-
+      ALTER TABLE ${table.name} ADD COLUMN +{/ddl/attribute/create-inline}
+    drop: |-
+      ALTER TABLE ${table.name} DROP COLUMN ${name}
+  constraints:
+    create: |-
+      *>{/ddl/constraint/${subject.type}/create}{;!{"\n"}}
+    create-inline: |-
+      *>{/ddl/constraint/${subject.type}/create-inline}{,!{"\n"}  }
+  constraint:
+    primary_key: 
+      create: |-
+        ALTER TABLE ${table.name} ADD +{/ddl/constraint/primary_key/create-inline}
+      create-inline: |-
+        PRIMARY KEY (*{subject.attributes as attr}{${attr}}{, })
+    foreign_key:
+      create: |-
+        ALTER TABLE ${table.name} ADD +{/ddl/constraint/foreign_key/create-inline}
+      create-inline: |-
+        FOREIGN KEY (*{subject.attributes as attr}{${attr}}{, }) REFERENCES ${subject.references}

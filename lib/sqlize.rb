@@ -6,3 +6,9 @@ module SQLize
 end # module SQLize
 require "sqlize/version"
 require "sqlize/loader"
+require "wlang/ext/hash_methodize"
+require "yaml"
+
+require "sqlize/wlang_dialect"
+require "sqlize/definitions"
+
