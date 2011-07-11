@@ -4,6 +4,9 @@ typing:
   Float: NUMERIC
 ddl:
   schema:
+    drop: |-
+      +{/ddl/relvars/drop-constraints}{subject: subject.relvars};
+      +{/ddl/relvars/drop}{subject: subject.relvars};
     create: |-
       +{/ddl/relvars/create}{subject: subject.relvars};
       +{/ddl/relvars/create-constraints}{subject: subject.relvars};
@@ -18,6 +21,8 @@ ddl:
       *>{/ddl/table/drop}{;!{"\n"}}
     create-constraints: |-
       *>{/ddl/table/create-constraints}{;!{"\n"}}
+    drop-constraints: |-
+      *>{/ddl/table/drop-constraints}{;!{"\n"}}
   table: 
     create: |-
       CREATE TABLE ${subject.name} (
@@ -32,6 +37,8 @@ ddl:
       DROP TABLE ${subject.name}
     create-constraints: |-
       +{/ddl/constraints/create}{table:subject, subject:subject.constraints}
+    drop-constraints: |-
+      +{/ddl/constraints/drop}{table:subject, subject:subject.constraints}
   heading:
     create-inline: |-
       *>{/ddl/attribute/create-inline}{,!{"\n"}  }
@@ -47,14 +54,21 @@ ddl:
       *>{/ddl/constraint/${subject.type}/create}{;!{"\n"}}
     create-inline: |-
       *>{/ddl/constraint/${subject.type}/create-inline}{,!{"\n"}  }
+    drop: |-
+      *>{/ddl/constraint/${subject.type}/drop}{;!{"\n"}}
   constraint:
     primary_key: 
       create: |-
         ALTER TABLE ${table.name} ADD +{/ddl/constraint/primary_key/create-inline}
       create-inline: |-
         CONSTRAINT ${subject.name} PRIMARY KEY (*{subject.attributes as attr}{${attr}}{, })
+      drop: |-
+        ALTER TABLE ${table.name} DROP CONSTRAINT ${subject.name}
     foreign_key:
       create: |-
         ALTER TABLE ${table.name} ADD +{/ddl/constraint/foreign_key/create-inline}
       create-inline: |-
         CONSTRAINT ${subject.name} FOREIGN KEY (*{subject.attributes as attr}{${attr}}{, }) REFERENCES ${subject.references}
+      drop: |-
+        ALTER TABLE ${table.name} DROP CONSTRAINT ${subject.name}
+

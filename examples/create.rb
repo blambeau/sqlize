@@ -7,4 +7,6 @@ defs = SQLize::Definitions.postgres
 puts defs.instantiate("/ddl/schema/create-inline", schema)
 puts "-"*80
 puts defs.instantiate("/ddl/schema/create", schema)
+puts "-"*80
+puts defs.instantiate("/ddl/schema/drop", schema)
 
