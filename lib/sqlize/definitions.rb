@@ -16,7 +16,7 @@ module SQLize
     end
 
     def template(qname)
-      qname.split('/')[1..-1].inject(defs){|m,k| m[k]}
+      qname.split('/')[1..-1].inject(defs){|m,k| m[k]} || raise
     rescue
       raise ArgumentError, "No such template #{qname}"
     end
