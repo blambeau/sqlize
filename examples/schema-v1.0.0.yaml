@@ -6,7 +6,7 @@ relvars:
       - { name: status, domain: Integer,  mandatory: true }
       - { name: city,   domain: String,   mandatory: true }
     constraints: 
-      - { name: pk, type: primary_key, attributes: [ sid ] }
+      - { name: pk_suppliers, type: primary_key, attributes: [ sid ] }
   - name: parts
     heading:
       - { name: pid,    domain: String,   mandatory: true }
@@ -15,14 +15,16 @@ relvars:
       - { name: weight, domain: Float,    mandatory: true }
       - { name: city,   domain: String,   mandatory: true }
     constraints: 
-      - { name: pk, type: primary_key, attributes: [ pid ] }
+      - { name: pk_parts, type: primary_key, attributes: [ pid ] }
   - name: supplies
     heading:
       - { name: sid,    domain: String,   mandatory: true }
       - { name: pid,    domain: String,   mandatory: true }
       - { name: qty,    domain: Integer,  mandatory: true }
     constraints: 
-      - { name: pk, type: primary_key, attributes: [ sid, pid ] }
-      - { name: known_supplier, type: foreign_key, attributes: [ sid ], references: suppliers }
-      - { name: known_part,     type: foreign_key, attributes: [ pid ], references: parts }
+      - { name: pk_supplies, type: primary_key, attributes: [ sid, pid ] }
+      - { name: supplies_by_known_supplier, 
+          type: foreign_key, attributes: [ sid ], references: suppliers }
+      - { name: suplpies_a_known_part, 
+          type: foreign_key, attributes: [ pid ], references: parts }
 

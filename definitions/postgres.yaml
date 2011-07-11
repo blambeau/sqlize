@@ -52,9 +52,9 @@ ddl:
       create: |-
         ALTER TABLE ${table.name} ADD +{/ddl/constraint/primary_key/create-inline}
       create-inline: |-
-        PRIMARY KEY (*{subject.attributes as attr}{${attr}}{, })
+        CONSTRAINT ${subject.name} PRIMARY KEY (*{subject.attributes as attr}{${attr}}{, })
     foreign_key:
       create: |-
         ALTER TABLE ${table.name} ADD +{/ddl/constraint/foreign_key/create-inline}
       create-inline: |-
-        FOREIGN KEY (*{subject.attributes as attr}{${attr}}{, }) REFERENCES ${subject.references}
+        CONSTRAINT ${subject.name} FOREIGN KEY (*{subject.attributes as attr}{${attr}}{, }) REFERENCES ${subject.references}
