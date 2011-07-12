@@ -13,4 +13,5 @@ require "sqlize/wlang_dialect"
 require "sqlize/definitions"
 require "sqlize/marker"
 require "sqlize/pretty_printer"
+require "sqlize/diff"
 

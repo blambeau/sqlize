@@ -16,7 +16,7 @@ module SQLize
 
     def to_summaryse
       @to_sum ||= [["name"], {
-        nil => :diff, 
+        nil => Diff, 
         "__op__" => if operation == :alter
                       lambda{|a| a.summaryse(:union)}
                     else
