@@ -2,7 +2,6 @@ module SQLize
   class PrettyPrinter
 
     def accept x
-      @stack = []
       visit x
     end
 
@@ -16,27 +15,11 @@ module SQLize
       a.is_a?(Array) and a.all?{|x| looks_a_tuple?(x)}
     end
 
-    def with_operation(op)
-      if op
-        @stack.push(op)
-        res = yield
-        @stack.pop
-        res
+    def with_operation(op, terminal)
+      if op && (terminal || op != Marker::ALTER)
+        yield(op.color)
       else
-        yield
-      end
-    end
-
-    def colorize(str, terminal)
-      case @stack.last
-        when Marker::ALTER
-          terminal ? str.yellow : str
-        when Marker::DROP
-          str.red
-        when Marker::CREATE
-          str.green
-        else
-          str
+        yield(nil)
       end
     end
 
@@ -59,14 +42,14 @@ module SQLize
     end
 
     def visit_Tuple x
-      with_operation(x["__op__"]) do
-        multi_line = x.values.any?{|v| looks_a_rel?(v)}
+      multi_line = x.values.any?{|v| looks_a_rel?(v)}
+      with_operation(x["__op__"], !multi_line) do |color|
         y = x.select{|k,v| k != "__op__"}
         res = y.collect{|k,v|
           "#{k}:" + (looks_a_rel?(v) ? "\n" : " ") + visit(v)
         }.join(multi_line ? "\n" : ", ")
         res = multi_line ? res : "{#{res}}"
-        res = multi_line ? res : colorize(res, !multi_line)
+        res = color ? res.send(color) : res
       end
     end
 

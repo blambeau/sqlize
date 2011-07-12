@@ -2,9 +2,11 @@ module SQLize
   class Marker
 
     attr_reader :operation
+    attr_reader :color
 
-    def initialize(operation)
+    def initialize(operation, color = nil)
       @operation = operation
+      @color = color
     end
 
     def |(other)
@@ -31,9 +33,9 @@ module SQLize
     def ==(other); other.is_a?(Marker) && other.inspect == inspect; end
     alias :eql? :==
     
-    CREATE    = Marker.new(:create)
-    DROP      = Marker.new(:drop)
-    ALTER     = Marker.new(:alter)
-    UNCHANGED = Marker.new(:unchanged)
+    CREATE    = Marker.new(:create,    :green)
+    DROP      = Marker.new(:drop,      :red)
+    ALTER     = Marker.new(:alter,     :yellow)
+    UNCHANGED = Marker.new(:unchanged, nil)
   end
 end
