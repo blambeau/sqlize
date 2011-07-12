@@ -1,8 +1,10 @@
 module SQLize
   class Marker
 
-    def initialize(name)
-      @name = name
+    attr_reader :operation
+
+    def initialize(operation)
+      @operation = operation
     end
 
     def |(other)
@@ -16,13 +18,9 @@ module SQLize
       [["name"], {nil => :diff, "__op__" => lambda{|a| self}}]
     end
 
-    def to_yaml(opts = {})
-      @name.to_yaml(opts)
-    end
-
-    def to_s;    @name.to_s;       end
-    def inspect; @name.inspect;    end
-    def hash;    @name.hash;       end
+    def to_s;    @operation.to_s;       end
+    def inspect; @operation.inspect;    end
+    def hash;    @operation.hash;       end
     def ==(other); other.is_a?(Marker) && other.inspect == inspect; end
     alias :eql? :==
     

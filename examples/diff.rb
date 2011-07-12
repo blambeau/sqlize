@@ -1,33 +1,36 @@
 $LOAD_PATH.unshift File.expand_path("../../lib",__FILE__) 
 require "sqlize"
 
+def looks_a_rel?(a)
+  a.is_a?(Array) and a.all?{|x| x.is_a?(Hash)}
+end
+
+Summaryse.register(:diff){|a|
+  case a.size
+  when 1
+    a.first
+  when 2
+    left, right = a
+    if looks_a_rel?(left)
+      [(left & right)].summaryse(SQLize::Marker::UNCHANGED) + [ 
+        [(left - right)].summaryse(SQLize::Marker::CREATE), 
+        [(right - left)].summaryse(SQLize::Marker::DROP)
+      ].summaryse(SQLize::Marker::ALTER)
+    elsif left == right
+      left
+    elsif left.is_a?(SQLize::Marker)
+      left | right
+    else
+      a
+    end
+  else
+    raise ArgumentError, "Unexpected array #{a.inspect}" if a.size == 2
+  end
+}
+
 s1  = YAML.load File.read(File.expand_path("../schema-v1.0.0.yaml", __FILE__))
 s2  = YAML.load File.read(File.expand_path("../schema-v1.0.1.yaml", __FILE__))
+s1 = [s1]
+s2 = [s2]
+puts [s2, s1].summaryse(:diff).to_yaml
 
-def conflict
-  lambda{|a| a.uniq.size == 1 ? a.first : a}
-end
-
-def marker(how)
-  if how
-    { nil => conflict, "index" => lambda{|a| how} }
-  else
-    { nil => conflict, "index" => :sum }
-  end
-end
-
-def merger(how)
-  { 
-    "relvars" => [[ "name" ], {
-      "heading"     => [[ "name" ], marker(how)],
-      "constraints" => [[ "name" ], marker(how)]
-    }]
-  }
-end
-
-# this gives all relvars for which something must be done
-s1 = [ s1 ].summaryse(merger(-1))
-s2 = [ s2 ].summaryse(merger(1))
-s = [ s2, s1 ].summaryse(merger(nil))
-
-puts s.to_yaml
