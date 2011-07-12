@@ -11,4 +11,5 @@ require "yaml"
 
 require "sqlize/wlang_dialect"
 require "sqlize/definitions"
+require "sqlize/marker"
 
