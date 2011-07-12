@@ -1,18 +1,18 @@
 relvars: 
-  - name: suppliers
-    heading:
-      - { name: sid,    domain: String,   mandatory: true }
-      - { name: name,   domain: String,   mandatory: true }
-      - { name: status, domain: Integer,  mandatory: true }
-      - { name: city,   domain: String,   mandatory: true }
-    constraints: 
-      - { name: pk_suppliers, type: primary_key, attributes: [ sid ] }
-  - name: parts
-    heading:
-      - { name: pid,    domain: String,   mandatory: true }
-      - { name: name,   domain: String,   mandatory: true }
-      - { name: color,  domain: String,   mandatory: true }
-      - { name: city,   domain: String,   mandatory: true }
-    constraints: 
-      - { name: pk_parts, type: primary_key, attributes: [ pid ] }
+- name: suppliers
+  heading:
+  - { name: sid,    domain: String,   mandatory: true }
+  - { name: name,   domain: String,   mandatory: true }
+  - { name: status, domain: Integer,  mandatory: true }
+  - { name: city,   domain: String,   mandatory: true }
+  constraints: 
+  - { name: pk_suppliers, type: primary_key, attributes: [ sid ] }
+- name: parts
+  heading:
+  - { name: pid,    domain: String,   mandatory: true }
+  - { name: name,   domain: String,   mandatory: true }
+  - { name: color,  domain: String,   mandatory: true }
+  - { name: city,   domain: String,   mandatory: true }
+  constraints: 
+  - { name: pk_parts, type: primary_key, attributes: [ pid ] }
 

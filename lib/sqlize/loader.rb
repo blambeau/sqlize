@@ -1,3 +1,3 @@
 require "wlang"
 require "summaryse"
-require "psych"
+require "colored"

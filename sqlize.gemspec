@@ -131,7 +131,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("wlang", "~> 0.10.2")
   s.add_dependency("wlang", "~> 0.10.2")
   s.add_dependency("summaryse", "~> 1.1.0")
-  s.add_dependency("psych", "~> 1.2.0")
+  s.add_dependency("colored", "~> 1.2.0")
 
   # The version of ruby required by this gem
   #

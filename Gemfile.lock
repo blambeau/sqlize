@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     sqlize (1.0.0)
+      colored (~> 1.2.0)
       summaryse (~> 1.1.0)
       wlang (~> 0.10.2)
 
@@ -9,6 +10,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     bluecloth (2.0.11)
+    colored (1.2)
     diff-lcs (1.1.2)
     rake (0.9.2)
     rspec (2.4.0)
