@@ -17,7 +17,7 @@ module SQLize
             [(right - left)].summaryse(SQLize::Marker::DROP)
           ].summaryse(SQLize::Marker::ALTER)
         elsif left == right
-          left
+          Summaryse::BYPASS
         elsif left.is_a?(SQLize::Marker)
           left | right
         else
