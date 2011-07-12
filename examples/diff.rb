@@ -34,6 +34,5 @@ s1 = [s1]
 s2 = [s2]
 
 diff = [s2, s1].summaryse(:diff)
-#puts diff.to_yaml
 puts SQLize::PrettyPrinter.new.accept(diff)
 
