@@ -1,7 +1,3 @@
-require 'rubygems'
-gem "psych", "1.2.0"
-require "psych"
-
 $LOAD_PATH.unshift File.expand_path("../../lib",__FILE__) 
 require "sqlize"
 
@@ -38,6 +34,6 @@ s1 = [s1]
 s2 = [s2]
 
 diff = [s2, s1].summaryse(:diff)
-puts diff.to_yaml
-#puts SQLize::PrettyPrinter.new.accept(diff)
+#puts diff.to_yaml
+puts SQLize::PrettyPrinter.new.accept(diff)
 
